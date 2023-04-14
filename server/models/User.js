@@ -23,7 +23,6 @@ const userSchema = new Schema(
     },
     // set savedRecipes to be an array of data that adheres to the recipeSchema
     savedRecipes: [userRecipeSchema],
-    userRecipes: [userRecipeSchema],
   },
   // set this to use virtual below
   {
@@ -33,7 +32,7 @@ const userSchema = new Schema(
   }
 );
 
-// hash user password
+// hash user password  NOTATE: wonder if i can use the next functionality to added donator to list after checkout submission
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;

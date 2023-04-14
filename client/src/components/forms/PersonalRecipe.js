@@ -68,7 +68,8 @@ const RecipeForm = () => {
 
   return (
     <div className="modal-container">
-      <div id="id02" className="create-recipe-modal">
+      {/* add back className create-recipe-modal */}
+      <div id="id02" className="">
         <div className="modal-content animate-zoom recipe-card">
           <header className="modal-container modal-color">
             <span
@@ -85,13 +86,6 @@ const RecipeForm = () => {
           {Auth.loggedIn() ? (
             <>
               <div className="modal-container">
-                <p
-                  className={`m-0 ${
-                    characterCount === 280 || error ? "text-danger" : ""
-                  }`}
-                >
-                  Character Count: {characterCount}/280
-                </p>
                 <form
                   className="flex-row justify-center justify-space-between-md align-center"
                   onSubmit={handleFormSubmit}
