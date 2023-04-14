@@ -17,7 +17,7 @@ const AppNavbar = () => {
       <Navbar bg='dark' variant='dark' expand='md'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
-            Recipe Search
+            Recipe Searcher
           </Navbar.Brand>
          
           <Navbar.Toggle aria-controls='navbar ' />

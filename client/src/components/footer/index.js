@@ -62,7 +62,7 @@ const Footer = () => {
                 </section>
             </div>
             <div className="container p-4">
-                <small className="text-center mt-5">&copy; Recipe Blog. {new Date().getFullYear()} All rights reserved.</small>
+                <small className="text-center mt-5">&copy; Recipe Searcher - {new Date().getFullYear()} - All rights reserved.</small>
             </div>
         </footer >
     )

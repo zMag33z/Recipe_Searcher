@@ -115,7 +115,7 @@ const SearchGPT = () => {
                 onChange={(e) => setSearchInput(e.target.value)}
                 type='text'
                 size='lg'
-                placeholder='Search for a recipe'
+                placeholder='Ex: spaghetti, chicken, etc.'
               />
             </Col>
             <Col xs={12} md={4}>

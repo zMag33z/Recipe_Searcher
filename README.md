@@ -1,6 +1,6 @@
-# Recipe Search
+# Recipe Searcher
 
-## Welcome to Recipe Search
+## Welcome to Recipe Searcher!
 
 ### Table of contents:
 
