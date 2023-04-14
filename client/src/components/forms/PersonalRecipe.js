@@ -69,7 +69,7 @@ const RecipeForm = () => {
   return (
     <div className="modal-container">
       {/* add back className create-recipe-modal */}
-      <div id="id02" className="">
+      <div id="id02" className="create-recipe-modal">
         <div className="modal-content animate-zoom recipe-card">
           <header className="modal-container modal-color">
             <span

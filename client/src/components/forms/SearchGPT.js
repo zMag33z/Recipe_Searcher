@@ -139,7 +139,7 @@ const SearchGPT = () => {
               <Col key={recipe.recipeId} md="4">
                 <Card border='dark'>
                   {/* DIDN'T REALIZE COMPLETELY BUT    ABOVE I WAS ALREAD GATHERING ALL DATA. can refactor with recipeData variable above */}
-                  <Card.Body  data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
+                  <Card.Body data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
                     <Card.Title>{recipe.title}</Card.Title>
                     <p className='small'>servings: {recipe.servings}</p>
                     <button className="recipe-modal-btn modal-color" onClick={(e) => {

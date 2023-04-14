@@ -1,9 +1,8 @@
-// this was the saved books file.
 // styling some how will need to be refactored.
 // once adding a recipe is working we'll come back to this deleting styling after we ensure it's functionality.
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import View from '../components/modals/View';
+// import View from '../components/modals/View';
 
 
 import {
@@ -51,8 +50,48 @@ const Dashboard = () => {
   // RESTRUCTURE THE LAYOUT OF THIS PAGE AND BE LESS LIKE HOMEPAGE AND A REAL DASHBOARD
   return (
     <>
-<h1>OVERHAUL</h1>
+
+      <div className="text-light bg-dark p-5">
+        <Container>
+          <h1>{Auth.getProfile().data.username}'s Viewer/Editor</h1>
+          <p>Welcome!</p>
+        </Container>
+      </div>
       <PersonalRecipe />
+      <Container>
+        <h2 className='pt-5'>
+          {userData.savedRecipes.length
+            ? `Viewing ${userData.savedRecipes.length} saved ${userData.savedRecipes.length === 1 ? 'recipe' : 'recipes'}:`
+            : 'You have no saved Recipes!'}
+        </h2>
+        <Row>
+          {userData.savedRecipes.map((recipe) => {
+            return (
+              <Col key={recipe.recipeId} md="4">
+                <Card border='dark'>
+                  <Card.Body data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
+                    <Card.Title>{recipe.title}</Card.Title>
+                    <p className='small'>Servings: {recipe.servings}</p>
+                    <Card.Text>{recipe.ingredients}</Card.Text>
+                    <Card.Text>{recipe.instructions}</Card.Text>
+                    <button className="recipe-modal-btn modal-color" onClick={(e) => {
+                      document.getElementById('id02').style.display='block';
+                      document.querySelector('.form-title').value = e.target.parentElement.dataset.title;
+                      document.querySelector('.form-servings').value = e.target.parentElement.dataset.servings;
+                      document.querySelector('.form-ingredients').value = e.target.parentElement.dataset.ingredients;
+                      document.querySelector('.form-instructions').value = e.target.parentElement.dataset.instructions;
+                      }}>Edit Recipe</button>
+                    <Button className='btn-block btn-danger' onClick={() => handleDeleteRecipe(recipe.recipeId)}>
+                      Delete this Recipe!
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+
     </>
   );
 };

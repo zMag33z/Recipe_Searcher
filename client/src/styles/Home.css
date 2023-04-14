@@ -1,15 +1,9 @@
 /* styling for homepage */
 
-/* James's HERO styling code here*/
-
-
-
-
-
-
-
-
-/* search box and results styling homepage */
+/* Hero image fixer */
+.d-block {
+    object-fit: cover;
+}
 
 /*fills in void space until search results are displayed */
 /* NEED TO calc inside media queries */
@@ -22,7 +16,7 @@
     min-height: 191px;
 }
 
-/* modal code provided by w3schools */
+/* Modal to view all recipe Info - modal code provided by w3schools */
 .recipe-modal{
     z-index: 3;
     display: none;
@@ -119,9 +113,3 @@
 .row {
     margin-top: 10px;
 }
-
-
-/* CHRISTIAN'S STYLE SUPER SECRET INFO */
-.d-block {
-    object-fit: cover;
-  }

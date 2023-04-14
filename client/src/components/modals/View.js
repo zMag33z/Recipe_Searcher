@@ -22,7 +22,7 @@ const View = () => {
       </div>
 
       <footer className="modal-container modal-color">
-        <p>SAVE BUTTON HERE</p>
+        <p></p>
       </footer>
 
     </div>
