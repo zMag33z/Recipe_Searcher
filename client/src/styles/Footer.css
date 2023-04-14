@@ -1,0 +1,21 @@
+/* GITHUB ICON */
+.foot-links {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.foot-links a {
+  color: white;
+}
+
+.foot-links a:hover {
+  color: rgb(226, 0, 0);
+}
+
+.foot-links a img {
+  margin: 10px;
+}
+
