@@ -1,9 +1,9 @@
 const { User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-// configure stripe donation here on server side
+// configure stripe here on server side USING CHECKOUT user fills out form for donation then donation checkout opens if info wrong user can close the box refill their form and resubmit action
 
-
+// NEED TO REFACTOR resolver to call for model not user model save array
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
@@ -117,6 +117,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You must be logged in!");
     },
+    // REFACTOR this code to meet needs of recipe model
     addRecipe: async (parent, {title, servings, ingredients, instructions}) => {
       const newRecipe = await Recipe.create({title, servings, ingredients, instructions});
       return newRecipe;

@@ -1,5 +1,6 @@
 const { gql } = require("apollo-server-express");
 
+// need to redefine UserRecipe to go to model and not to User's save array
 const typeDefs = gql`
   input RecipeInput {
     recipeId: String!

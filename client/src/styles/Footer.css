@@ -2,9 +2,6 @@
 .foot-links {
   padding: 5px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 20px;
 }
 
 .foot-links a {
@@ -19,3 +16,6 @@
   margin: 10px;
 }
 
+.mb-4 a{
+  margin: 10px!important;
+}

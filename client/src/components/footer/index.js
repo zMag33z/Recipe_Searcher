@@ -37,9 +37,6 @@ const Footer = () => {
 
                 <section className="links">
 
-                    <div className="row">
-                        {/* <div className="col-lg-3 col-md-6 mb-4 mb-md-0"> */}
-
                         <div className="col-links">
                             <h5 className="text-uppercase p-2">Links</h5>
 
@@ -61,7 +58,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+
                 </section>
             </div>
             <div className="container p-4">

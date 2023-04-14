@@ -33,10 +33,6 @@ h6 {
   padding: 0 15px;
 }
 
-/* .show{
-  display: inline;
-} */
-
 /* media screen queries should go here in index which is always active*/
 /* or create an additional css file called utility and import to index.js along with index.css*/
 /* remember to be start on the smaller size first */
@@ -46,31 +42,49 @@ h6 {
     display: block;
   }
   .icon {
-    height: 30px;
+    height: 35px;
   }
-
+  .foot-links{
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 @media screen and (min-width: 540px) {
   /* advice page style */
- .advice-list{
-  width: 75%;
- }
- .icon {
-  height: 60px;
+  .advice-list{
+    width: 75%;
+  }
+
+  .icon {
+    height: 60px;
+  }
+
+  .borderer-cont{
+    max-width: 50%;
+  }
+
+  .foot-links{
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
 }
-}
+
 
 @media screen and (min-width: 824px) {
   /* advice page style */
- .advice-list a{
-  display: inline-block;
- }
- .advice p{
-  margin: 0 auto 15px auto;
-  width: 75%;
- }
- 
+  .advice-list a{
+    display: inline-block;
+  }
+  .advice p{
+    margin: 0 auto 15px auto;
+    width: 75%;
+  }
+
+  .icon{
+    height: 75px;
+  }
 }
 
 @media screen and (min-width: 1060px){

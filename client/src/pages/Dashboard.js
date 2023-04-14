@@ -48,6 +48,7 @@ const Dashboard = () => {
 
   if(loading){return <h2>loading now...</h2>};
 
+  // RESTRUCTURE THE LAYOUT OF THIS PAGE AND BE LESS LIKE HOMEPAGE AND A REAL DASHBOARD
   return (
     <>
     {/* <PersonalRecipe /> */}
