@@ -138,8 +138,7 @@ const SearchGPT = () => {
             return (
               <Col key={recipe.recipeId} md="4">
                 <Card border='dark'>
-                  {/* here i gave the card body data attributes would've used one but couldn't split data.  when clicked attribute values will be passed to view modal */}
-                  {/* data-function={handleSaveRecipe} WHATEVER this is is causing an error when searching recipes. Data attributes can't be functions only values.*/}
+                  {/* DIDN'T REALIZE COMPLETELY BUT    ABOVE I WAS ALREAD GATHERING ALL DATA. can refactor with recipeData variable above */}
                   <Card.Body  data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
                     <Card.Title>{recipe.title}</Card.Title>
                     <p className='small'>servings: {recipe.servings}</p>
