@@ -14,7 +14,7 @@ const resolvers = {
 
         return userData;
       }
-      throw new AuthenticationError("You are not logged in");
+      // throw new AuthenticationError("You are not logged in");
     },
     // create a query to function donation form
     // example use from 22.24 change for personal usecase
@@ -99,7 +99,7 @@ const resolvers = {
         
         return updatedUser;
       }
-      throw new AuthenticationError("You must be logged in!");
+      // throw new AuthenticationError("You must be logged in!");
     },
     // pull recipe id from args to remove
     removeRecipe: async (parent, { recipeId }, context) => {
@@ -122,7 +122,7 @@ const resolvers = {
       console.log('RESOLVER addRecipe', args);
       // const newRecipe = await PersonalRecipe.create({});
 
-      return newRecipe;
+      // return newRecipe;
     }
   },
 };

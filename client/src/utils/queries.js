@@ -1,8 +1,26 @@
 import { gql } from '@apollo/client';
 
 // FINISH add donation query to go to checkout with info
+// export const GET_ME = gql`
+//   {
+//     me {
+//       _id
+//       username
+//       recipeCount
+//       email
+//       savedRecipes {
+//         recipeId
+//         title
+//         servings
+//         ingredients
+//         instructions
+//       }
+//     }
+//   }
+// `;
+
 export const GET_ME = gql`
-  {
+  query getMe{
     me {
       _id
       username
@@ -16,7 +34,7 @@ export const GET_ME = gql`
         instructions
       }
     }
-  }
+  }  
 `;
 
 // export const QUERY_RECIPES = gql`

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { CREATE_RECIPE } from "../../utils/mutations";
@@ -7,20 +6,21 @@ import { CREATE_RECIPE } from "../../utils/mutations";
 
 // import Auth from "../../utils/auth";
 
-const RecipeForm = () => {
+const RecipeForm = ({singleRecipe}) => {
 
-
-  const [recipeFormData, setRecipeFormData] = useState({ title: '', servings: '', ingredients: '', instructions: ''});
+  const [recipeFormData, setRecipeFormData] = useState(singleRecipe);
+  
+  console.log('recipeFormData', recipeFormData);
   const [validated] = useState('false');
 
-  const [characterCount, setCharacterCount] = useState(0);
+  // const [characterCount, setCharacterCount] = useState(0);
 
-  const [addRecipe, { error }] = useMutation(CREATE_RECIPE);
+  const [createRecipe, { error }] = useMutation(CREATE_RECIPE);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setRecipeFormData({ ...recipeFormData, [name]: value });
-    setCharacterCount(value.length);
+    // setCharacterCount(value.length);
 
     // the ingredient list and instruction list will be longer than 280 characters.
     // Not currently worried about it.
@@ -46,7 +46,7 @@ const RecipeForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    console.log('checking submit')
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -54,7 +54,7 @@ const RecipeForm = () => {
     };
 
     try {
-      const { data } = await addRecipe({
+      const { data } = await createRecipe({
         variables: { ...recipeFormData },
       });
 
@@ -63,7 +63,7 @@ const RecipeForm = () => {
     } catch (err) {
       console.error(err);
     }
-
+console.log('checking before setrecipe empty form')
     setRecipeFormData({
       title: '',
       servings: '',
@@ -74,7 +74,7 @@ const RecipeForm = () => {
   };
 
   return (
-    <section className="modal-container">
+    <section id={recipeFormData.recipeId} className="modal-container">
       {/* add back className create-recipe-modal */}
       <div id="id02" className="create-recipe-modal">
         <div className="modal-content animate-zoom recipe-card">
@@ -111,6 +111,8 @@ const RecipeForm = () => {
                   required>
                 </textarea>
                 <textarea
+                  name="servings"
+                  placeholder="Servings"
                   value={recipeFormData.servings}
                   className="form-servings w-100"
                   style={{ lineHeight: "1.5", resize: "vertical" }}
