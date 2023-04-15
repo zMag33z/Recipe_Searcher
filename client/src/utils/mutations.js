@@ -82,15 +82,19 @@ export const REMOVE_RECIPE = gql`
   }
 `;
 
-export const ADD_RECIPE = gql`
-  mutation addRecipe($title: String!, $author: String!, $servings: String!, $ingredients: String!, $instructions: String!) {
-    addRecipe(title: $title, author: $author, servings: $servings, ingredients: $ingredients, instructions: $instructions) {
-      author
-      title
-      servings
-      ingredients
-      instructions
-      
+export const CREATE_RECIPE = gql`
+  mutation createRecipe(
+    $personalRecipe: PRecipeInput!
+    ) {
+      createRecipe(
+        personalRecipe: $personalRecipe
+      ) {
+        recipeId
+        title
+        servings
+        ingredients
+        instructions
+        userId
     }
   }
 `;

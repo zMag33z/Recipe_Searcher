@@ -2,7 +2,6 @@
 // once adding a recipe is working we'll come back to this deleting styling after we ensure it's functionality.
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-// import View from '../components/modals/View';
 
 
 import {
@@ -24,6 +23,8 @@ import { REMOVE_RECIPE } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeRecipeId } from '../utils/localStorage';
 
+
+// implement useState so when recipe deleted it will update the appearance of the page
 const Dashboard = () => {
   const { loading, data } = useQuery(GET_ME);
   const [deleteRecipe] = useMutation(REMOVE_RECIPE);
@@ -50,14 +51,13 @@ const Dashboard = () => {
   // RESTRUCTURE THE LAYOUT OF THIS PAGE AND BE LESS LIKE HOMEPAGE AND A REAL DASHBOARD
   return (
     <>
-
       <div className="text-light bg-dark p-5">
         <Container>
           <h1>{Auth.getProfile().data.username}'s Viewer/Editor</h1>
           <p>Welcome!</p>
         </Container>
       </div>
-      <PersonalRecipe />
+
       <Container>
         <h2 className='pt-5'>
           {userData.savedRecipes.length
@@ -69,6 +69,7 @@ const Dashboard = () => {
             return (
               <Col key={recipe.recipeId} md="4">
                 <Card border='dark'>
+                  {/* DIDN'T REALIZE COMPLETELY BUT    ABOVE I WAS ALREAD GATHERING ALL DATA. can refactor with recipeData variable above */}
                   <Card.Body data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
                     <Card.Title>{recipe.title}</Card.Title>
                     <p className='small'>Servings: {recipe.servings}</p>
@@ -82,7 +83,9 @@ const Dashboard = () => {
                       document.querySelector('.form-instructions').value = e.target.parentElement.dataset.instructions;
                       }}>Edit Recipe</button>
                     <Button className='btn-block btn-danger' onClick={() => handleDeleteRecipe(recipe.recipeId)}>
-                      Delete this Recipe!
+                    {userData.savedRecipes?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
+                          ? 'Recipe Deleted!'
+                          : 'Delete this Recipe!'}
                     </Button>
                   </Card.Body>
                 </Card>
@@ -92,6 +95,7 @@ const Dashboard = () => {
         </Row>
       </Container>
 
+      <PersonalRecipe />
     </>
   );
 };

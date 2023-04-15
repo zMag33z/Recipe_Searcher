@@ -19,23 +19,23 @@ export const GET_ME = gql`
   }
 `;
 
-export const QUERY_RECIPES = gql`
-  {
-    recipes {
-      _id
-      recipeText
-      author
-      createdAt
-      commentCount
-      comments {
-        _id
-        commentText
-        createdAt
-        username
-      }
-    }
-  }
-`;
+// export const QUERY_RECIPES = gql`
+//   {
+//     recipes {
+//       _id
+//       recipeText
+//       author
+//       createdAt
+//       commentCount
+//       comments {
+//         _id
+//         commentText
+//         createdAt
+//         username
+//       }
+//     }
+//   }
+// `;
 
 export const ADD_DONATION = gql`
   mutation addDonation(
@@ -52,10 +52,7 @@ export const ADD_DONATION = gql`
       thoughtText
       thoughtAuthor
       createdAt
-      comments {
-        _id
-        commentText
-      }
+
     }
   }
 `;

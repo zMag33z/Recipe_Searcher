@@ -36,7 +36,7 @@ export default function DonateForm() {
         const { name, value } = event.target;
 console.log(name)
         switch(name){
-            case 'anyname':{
+            case 'fullname':{
                 return setFormState({ ...formState, [name]: value });
             }
             case 'email':{
@@ -63,7 +63,7 @@ console.log(name)
                     id="name"
                     name="anyname"
                     placeholder='Enter full name'
-                    value={formState.anyname}
+                    value={formState.fullname}
                     onChange={handleChange}
                 />
             </div>
