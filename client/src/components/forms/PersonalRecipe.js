@@ -6,11 +6,10 @@ import { CREATE_RECIPE } from "../../utils/mutations";
 
 // import Auth from "../../utils/auth";
 
-const RecipeForm = ({singleRecipe}) => {
+const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const [recipeFormData, setRecipeFormData] = useState(singleRecipe);
   
-  console.log('recipeFormData', recipeFormData);
   const [validated] = useState('false');
 
   // const [characterCount, setCharacterCount] = useState(0);
@@ -81,10 +80,7 @@ console.log('checking before setrecipe empty form')
           <header className="modal-container modal-color">
             <span
               className="recipe-modal-btn topright"
-              onClick={() => {
-                document.getElementById("id02").style.display = "none";
-              }}
-            >
+              onClick={handleToggle}>
               &times;
             </span>
             <h3>Create a New Recipe</h3>

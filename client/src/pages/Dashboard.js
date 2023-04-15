@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
-
 import {
   Container,
   Card,
@@ -34,11 +33,14 @@ const Dashboard = () => {
 
   const [show, setShow] = useState(false);
 
+  const handleToggle = () => {
+    setShow(!show);
+  };
+
   const handleEditRecipe = async (recipeId) => {
     const thisRecipe = await userData.savedRecipes.filter(recipe => recipe.recipeId === recipeId);
-    console.log('handle edit\n', ...thisRecipe);
     setRecipeData(...thisRecipe);
-    setShow(!show);
+    handleToggle();
   };
 
   const handleDeleteRecipe = async (recipeId) => {
@@ -59,7 +61,6 @@ const Dashboard = () => {
 
   if(loading){return <h2>loading now...</h2>};
 
-  // RESTRUCTURE THE LAYOUT OF THIS PAGE AND BE LESS LIKE HOMEPAGE AND A REAL DASHBOARD
   return (
     <>
       <div className="text-light bg-dark p-5">
@@ -80,22 +81,17 @@ const Dashboard = () => {
             return (
               <Col key={recipe.recipeId} md="4">
                 <Card border='dark'>
-                  {/* DIDN'T REALIZE COMPLETELY BUT    ABOVE I WAS ALREAD GATHERING ALL DATA. can refactor with recipeData variable above */}
-                  <Card.Body id={recipe.recipeId} data-title={recipe.title} data-servings={recipe.servings} data-ingredients={recipe.ingredients} data-instructions={recipe.instructions}>
+                  <Card.Body>
                     <Card.Title>{recipe.title}</Card.Title>
                     <p className='small'>Servings: {recipe.servings}</p>
                     <Card.Text>{recipe.ingredients}</Card.Text>
                     <Card.Text>{recipe.instructions}</Card.Text>
-                    <button className="recipe-modal-btn modal-color" onClick={(e) => {                      
-                      // document.getElementById('id02').style.display='block';
-
-                      // document.querySelector('.form-title').value = e.target.parentElement.dataset.title;
-                      // document.querySelector('.form-servings').value = e.target.parentElement.dataset.servings;
-                      // document.querySelector('.form-ingredients').value = e.target.parentElement.dataset.ingredients;
-                      // document.querySelector('.form-instructions').value = e.target.parentElement.dataset.instructions;
+                    <button className="recipe-modal-btn modal-color" onClick={(e) => {
                       handleEditRecipe(recipe.recipeId);
                       }}>Edit Recipe</button>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteRecipe(recipe.recipeId)}>
+                    <Button className='btn-block btn-danger' onClick={() => {
+                      handleDeleteRecipe(recipe.recipeId);
+                      }}>
                     {userData.savedRecipes?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
                           ? 'Recipe Deleted!'
                           : 'Delete this Recipe!'}
@@ -108,7 +104,7 @@ const Dashboard = () => {
         </Row>
       </Container>
 
-      {show ? <PersonalRecipe singleRecipe={recipeData}/> : null}
+      {show ? <PersonalRecipe singleRecipe={recipeData} handleToggle={handleToggle}/> : null}
     </>
   );
 };
