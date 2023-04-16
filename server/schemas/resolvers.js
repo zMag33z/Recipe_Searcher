@@ -3,7 +3,6 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 // configure stripe here on server side USING CHECKOUT user fills out form for donation then donation checkout opens if info wrong user can close the box refill their form and resubmit action
 
-// NEED TO REFACTOR resolver to call for model not user model save array
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
@@ -103,9 +102,6 @@ const resolvers = {
     },
     // pull recipe id from args to remove
     removeRecipe: async (parent, { recipeId }, context) => {
-
-      console.log('RESOLVER removeRecipe', recipeId);
-
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -119,25 +115,27 @@ const resolvers = {
     },
     // REFACTOR this code to meet needs of recipe model
     createRecipe: async (parent, { personalRecipe }, context) => {
-      // let newRecipeID;
+      
+      let newRecipeID;
       try {
         const newRecipeData = await PersonalRecipe.create(personalRecipe);
-        console.log('NEW MODEL', newRecipeData);
         newRecipeID = newRecipeData._id;
       } catch (err) {
         console.error(err);
       }
 
-      // try {
-      //   const newUserData = await User.findOneAndUpdate(
-      //     { _id: context.user._id},
-      //     { $addToSet: { createdRecipes: newRecipeID }},
-      //     { runValidators: true, new: true }
-      //   );
-      //   console.log('CREATED ARRAY', newUserData);
-      // } catch (err) {
-      //   console.error(err);
-      // }
+      try {
+        const newUserData = await User.findOneAndUpdate(
+          { _id: context.user._id},
+          { $addToSet: { createdRecipes: newRecipeID }},
+          { runValidators: true, new: true }
+        );
+        console.log('CREATED ARRAY', newUserData);
+      } catch (err) {
+        console.error(err);
+      }
+
+      //CREATE NEW MUTATION BELOW FOR THIS CODE.
 
       // try {
       //   const updateRecipe = personalRecipe;

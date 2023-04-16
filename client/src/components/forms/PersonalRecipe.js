@@ -53,11 +53,16 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;  
 
     if(!token){return false;};
+
     try {
-      const { data } = await createRecipe({
+      await createRecipe({
         variables: { personalRecipe: { ...recipeFormData }},
       });
-      console.log('back in personal recipe', data);
+
+      // create mutation to now go off and update user saved recipes array
+      // START HERERE!!!!!!!!!
+
+
     } catch (err) {
       console.error(err);
     }

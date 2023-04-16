@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-// FIX!!!! the mutations here for Add Recipe to go to model of recipe not user save array.
+
 export const LOGIN_USER = gql`
   mutation login(
     $email: String!
@@ -39,7 +39,7 @@ export const ADD_USER = gql`
   }
 `;
 
-// CHECK OUT THE SAVE MODEL HERE 
+
 export const SAVE_RECIPE = gql`
   mutation saveRecipe(
     $newRecipe: RecipeInput!
@@ -61,7 +61,7 @@ export const SAVE_RECIPE = gql`
   }
 `;
 
-// SAME CHECK OUT MODEL FLOW
+
 export const REMOVE_RECIPE = gql`
   mutation removeRecipe(
     $recipeId: ID!
@@ -98,3 +98,5 @@ export const CREATE_RECIPE = gql`
     }
   }
 `;
+
+// CREATE UPDATE USER'S SAVED RECIPES ARRAY
