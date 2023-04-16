@@ -75,6 +75,6 @@ const typeDefs = gql`
     addDonation(donation: DonationInput!): DonationList
   }
 `;
-// look at saveRecipe and createRecipe mutations using Input types.
-// Use for updateRecipe and addDonation mutations
+
+
 module.exports = typeDefs;

@@ -18,11 +18,12 @@ export default function DonateForm() {
     const [addDonation] = useMutation(ADD_DONATION);
     
     const handleFormSubmit = async (event) => {
+        console.log(formState);
         event.preventDefault();
     
         try {
             await addDonation({
-                variables: { ...formState }
+                variables: { donation: { ...formState } }
             })
     
             window.location.reload();

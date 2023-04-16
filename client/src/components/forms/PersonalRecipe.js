@@ -15,9 +15,9 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [createRecipe] = useMutation(CREATE_RECIPE);
+  const [createRecipe, { error }] = useMutation(CREATE_RECIPE);
 
-  const [userRecipeUpdate, {data, loading, error}] = useMutation(USER_RECIPE_UPDATE);
+  const [userRecipeUpdate] = useMutation(USER_RECIPE_UPDATE);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,8 +66,6 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
       console.error(err);
     }
 
-    // create mutation to now go off and update user saved recipes array
-    // START HERERE!!!!!!!!!
     try {
 
       //  removing key value for update to user's savedrecipes array
@@ -89,8 +87,9 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
       ingredients: '',
       instructions: '',
     })
-    // i am loving the toggle over modal functionality
-    handleToggle();
+    // i am loving the toggle over modal functionality but need reload here to update recipes display
+    // handleToggle();
+    window.location.reload();
   };
 
   return (
