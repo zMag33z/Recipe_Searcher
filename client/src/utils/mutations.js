@@ -108,7 +108,6 @@ export const USER_RECIPE_UPDATE = gql`
     userRecipeUpdate(
       updateUserRecipe: $updateUserRecipe
     ) {
-      _id
       username
       recipeCount
       savedRecipes {

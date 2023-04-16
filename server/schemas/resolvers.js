@@ -117,53 +117,48 @@ const resolvers = {
     createRecipe: async (parent, { personalRecipe }, context) => {
       // creating new personal recipe
 
-      console.log('RESOVLER Save NONE go Back to CLIENT')
+      console.log('RESOVLER createRecipe');
 
-      // let newRecipeID;
-      // try {
-      //   const newRecipeData = await PersonalRecipe.create(personalRecipe);
-      //   newRecipeID = newRecipeData._id;
-      // } catch (err) {
-      //   console.error(err);
-      // }
-      // // adding new personal recipe id to user
-      // try {
-      //   const newUserData = await User.findOneAndUpdate(
-      //     { _id: context.user._id},
-      //     { $addToSet: { createdRecipes: newRecipeID }},
-      //     { runValidators: true, new: true }
-      //   );
-      //   console.log('CREATED ARRAY', newUserData);
-      // } catch (err) {
-      //   console.error(err);
-      // }
+      let newRecipeID;
+      try {
+        const newRecipeData = await PersonalRecipe.create(personalRecipe);
+        newRecipeID = newRecipeData._id;
+      } catch (err) {
+        console.error(err);
+      }
+      // adding new personal recipe id to user
+      try {
+        const newUserData = await User.findOneAndUpdate(
+          { _id: context.user._id},
+          { $addToSet: { createdRecipes: newRecipeID }},
+          { runValidators: true, new: true }
+        );
+        console.log('CREATED ARRAY', newUserData);
+      } catch (err) {
+        console.error(err);
+      }
     },
-    userRecipeUpdate: async (parent, { personalRecipe }, context) => {
+    userRecipeUpdate: async (parent, { updateUserRecipe }, context) => {
       //CREATE NEW MUTATION BELOW FOR THIS CODE.
+      console.log('RESOLVER userRecipeUpdate', updateUserRecipe, context.user._id);
+      try {
+        const updatedRecipeData = await User.findOneAndUpdate(
+          { _id: context.user._id, savedRecipes: { $elemMatch: { recipeId: updateUserRecipe.recipeId } }},
+          { $set: {
+            "savedRecipes.$.title": updateUserRecipe.title,
+            "savedRecipes.$.servings": updateUserRecipe.servings,
+            "savedRecipes.$.ingredients": updateUserRecipe.ingredients,
+            "savedRecipes.$.instructions": updateUserRecipe.instructions,
+            }
+          },
+          { runValidators: true, new: true }
+        ).populate("savedRecipes");
 
-      // try {
+        console.log('UPDATED', updatedRecipeData);
 
-      //   KEEP AN EYE ON THE TWO PIECES BELOW POSSIBLY NEED CHANGE
-      //   const updateRecipe = personalRecipe;
-      //   delete updateRecipe.createdBy;
-
-      //   const updatedRecipeData = await User.findOneAndUpdate(
-      //     { _id: context.user._id, savedRecipes: { $elemMatch: { recipeId: personalRecipe.recipeId } }},
-      //     { $set: {
-      //       "savedRecipes.$.title": personalRecipe.title,
-      //       "savedRecipes.$.servings": personalRecipe.servings,
-      //       "savedRecipes.$.ingredients": personalRecipe.ingredients,
-      //       "savedRecipes.$.instructions": personalRecipe.instructions,
-      //       }
-      //     },
-      //     { runValidators: true, new: true }
-      //   ).populate("savedRecipes");
-
-      //   console.log('UPDATED', updatedRecipeData);
-
-      // } catch (err) {
-      //   console.error(err);
-      // }
+      } catch (err) {
+        console.error(err);
+      }
     }
   },
 };

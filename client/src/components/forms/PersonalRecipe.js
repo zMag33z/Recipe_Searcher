@@ -17,7 +17,7 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const [createRecipe] = useMutation(CREATE_RECIPE);
 
-  const [userRecipeUpdate, {error}] = useMutation(USER_RECIPE_UPDATE);
+  const [userRecipeUpdate, {data, loading, error}] = useMutation(USER_RECIPE_UPDATE);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +58,7 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
     if(!token){return false;};
 
     try {
-      await createRecipe({
+       await createRecipe({
         variables: { personalRecipe: { ...recipeFormData }},
       });
 
@@ -68,14 +68,20 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
 
     // create mutation to now go off and update user saved recipes array
     // START HERERE!!!!!!!!!
-    // try {
-    //   await userRecipeUpdate({
-    //     variables: { personalRecipe: { ...recipeFormData }},
-    //   });
+    try {
 
-    // } catch (err) {
-    //   console.error(err);
-    // }
+      //  removing key value for update to user's savedrecipes array
+      const updateRecipe = recipeFormData;
+      delete updateRecipe.createdBy;
+
+      console.log('UPDATE TRY', updateRecipe);
+      await userRecipeUpdate({
+        variables: { updateUserRecipe: { ...updateRecipe }},
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
 
     setRecipeFormData({
       title: '',

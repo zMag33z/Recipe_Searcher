@@ -61,11 +61,17 @@ Please contact us at:
 
 ## Location:
 
-Repository Code:
+Start Repository Code:
  - https://github.com/itsvictorg/recipe-blog
 
+Start Repository Code Last Commit:
+ - https://github.com/itsvictorg/recipe-blog/commit/e2eca88979259c97a8b5fe68a64f8f5bc1855e25
+
+Personal Changes after above Last Commit:
+ - https://github.com/zMag33z/Recipe_Searcher
+
 Heroku Live:
- - https://recipe-blog.herokuapp.com/
+ - **under construction**
 
 ## License:
   
