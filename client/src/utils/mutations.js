@@ -94,7 +94,7 @@ export const CREATE_RECIPE = gql`
         servings
         ingredients
         instructions
-        userId
+        createdBy
     }
   }
 `;

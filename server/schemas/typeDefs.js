@@ -16,7 +16,7 @@ const typeDefs = gql`
     servings: String!
     ingredients: String!
     instructions: String!
-    userId: String!
+    createdBy: String!
   }
 
   type User {
@@ -41,7 +41,7 @@ const typeDefs = gql`
     servings: String!
     ingredients: String!
     instructions: String!
-    userId: String!
+    createdBy: String!
   }
 
   type Auth {

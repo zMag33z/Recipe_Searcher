@@ -7,9 +7,9 @@ import { CREATE_RECIPE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 const RecipeForm = ({singleRecipe, handleToggle}) => {
-  console.log(singleRecipe)
-  const [recipeFormData, setRecipeFormData] = useState({title: singleRecipe.title, servings: singleRecipe.servings, ingredients: singleRecipe.ingredients, instructions: singleRecipe.instructions, recipeId: singleRecipe.recipeId, userId: singleRecipe.userId});
-  
+
+  const [recipeFormData, setRecipeFormData] = useState({title: singleRecipe.title, servings: singleRecipe.servings, ingredients: singleRecipe.ingredients, instructions: singleRecipe.instructions, recipeId: singleRecipe.recipeId, createdBy: singleRecipe.createdBy});
+  console.log(recipeFormData);
   const [validated] = useState('false');
 
   const [characterCount, setCharacterCount] = useState(0);
@@ -44,27 +44,20 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log('checking submit')
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     };
 
-    console.log('validity');
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;  
 
     if(!token){return false;};
-    console.log('token');
     try {
-      console.log(recipeFormData);
       const { data } = await createRecipe({
         variables: { personalRecipe: { ...recipeFormData }},
       });
-
-
-      console.log('DATA SAVED', data);
+      console.log(data);
     } catch (err) {
       console.error(err);
     }

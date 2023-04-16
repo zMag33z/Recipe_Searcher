@@ -23,6 +23,12 @@ const userSchema = new Schema(
     },
     // set savedRecipes to be an array of data that adheres to the recipeSchema
     savedRecipes: [userRecipeSchema],
+    createdRecipes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'PersonalRecipe'
+      }
+    ]
   },
   // set this to use virtual below
   {

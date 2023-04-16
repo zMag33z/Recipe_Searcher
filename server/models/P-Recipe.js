@@ -28,7 +28,7 @@ const personalRecipeSchema = new Schema(
         type: Date,
         default: Date.now,
     },
-    userId: {
+    createdBy: {
         type: String,
         required: true,
     }

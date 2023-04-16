@@ -30,7 +30,7 @@ const Dashboard = () => {
   const userData = data?.me || {};
 
 
-  const [recipeData, setRecipeData] = useState({ recipeId: '', title: '', servings: '', ingredients: '', instructions: '', userId: ''});
+  const [recipeData, setRecipeData] = useState({ recipeId: '', title: '', servings: '', ingredients: '', instructions: '', createdBy: ''});
 
   const [show, setShow] = useState(false);
 
@@ -38,12 +38,11 @@ const Dashboard = () => {
     setShow(!show);
   };
 
-  const handleEditRecipe = async (recipeId, userId) => {
-    console.log(userData._id)
+  const handleEditRecipe = async (recipeId) => {
+    console.log('user', userData);
     const thisRecipe = await userData.savedRecipes.filter(recipe => recipe.recipeId === recipeId);
-    console.log('handle edit',thisRecipe)
     // needed userId NEEDS REFACTORING
-    setRecipeData({ title: thisRecipe[0].title, servings: thisRecipe[0].servings, ingredients: thisRecipe[0].ingredients, instructions: thisRecipe[0].instructions, recipeId: thisRecipe[0].recipeId, userId: userData._id});
+    setRecipeData({ title: thisRecipe[0].title, servings: thisRecipe[0].servings, ingredients: thisRecipe[0].ingredients, instructions: thisRecipe[0].instructions, recipeId: thisRecipe[0].recipeId, createdBy: userData.username});
     handleToggle();
   };
 
@@ -94,7 +93,7 @@ const Dashboard = () => {
                       handleEditRecipe(recipe.recipeId);
                       }}>Edit Recipe</button>
                     <Button className='btn-block btn-danger' onClick={() => {
-                      handleDeleteRecipe(recipe.recipeId, userData._id);
+                      handleDeleteRecipe(recipe.recipeId);
                       }}>
                     {userData.savedRecipes?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
                           ? 'Recipe Deleted!'
