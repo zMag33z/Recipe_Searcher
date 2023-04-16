@@ -110,7 +110,7 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedRecipes: { recipeId: recipeId } } },
-          { new: true }
+          { runValidators: true, new: true }
         ).populate("savedRecipes");
 
         return updatedUser;
@@ -118,11 +118,41 @@ const resolvers = {
       throw new AuthenticationError("You must be logged in!");
     },
     // REFACTOR this code to meet needs of recipe model
-    createRecipe: async (parent, args, context) => {
-      console.log('RESOLVER addRecipe', args);
-      // const newRecipe = await PersonalRecipe.create({});
+    createRecipe: async (parent, { personalRecipe }, context) => {
+      // let newRecipeID;
+      try {
+        const newRecipeData = await PersonalRecipe.create(personalRecipe);
+        console.log('NEW MODEL', newRecipeData);
+        newRecipeID = newRecipeData._id;
+      } catch (err) {
+        console.error(err);
+      }
 
-      // return newRecipe;
+      // try {
+      //   const newUserData = await User.findOneAndUpdate(
+      //     { _id: context.user._id},
+      //     { $addToSet: { createdRecipes: newRecipeID }},
+      //     { runValidators: true, new: true }
+      //   );
+      //   console.log('CREATED ARRAY', newUserData);
+      // } catch (err) {
+      //   console.error(err);
+      // }
+
+      // try {
+      //   const updateRecipe = personalRecipe;
+      //   delete updateRecipe.createdBy;
+      //   const updatedRecipeData = await User.findOneAndUpdate(
+      //     { _id: context.user._id, "savedRecipes.recipeId": personalRecipe.recipeId},
+      //     { $set: { updateRecipe } },
+      //     { runValidators: true, new: true }
+      //   ).populate("savedRecipes");
+      //   console.log('UPDATED', updatedRecipeData);
+      // } catch (err) {
+      //   console.error(err);
+      // }
+
+
     }
   },
 };

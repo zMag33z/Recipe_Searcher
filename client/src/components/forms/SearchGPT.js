@@ -75,18 +75,14 @@ const SearchGPT = () => {
 
   // create function to handle saving a recipe to our database
   const handleSaveRecipe = async (recipeId) => {
-    console.log('Save Recipe', recipeId);
-
     // find the recipe in `searchedrecipes` state by the matching id
     const recipeToSave = searchedRecipes.find((recipe) => recipe.recipeId === recipeId);
-    
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
-    console.log('Token True', recipeToSave);
 
     try {
       await saveRecipe({
@@ -94,13 +90,11 @@ const SearchGPT = () => {
       });
       // if recipe successfully saves to user's account, save recipe id to state
       setSavedRecipeIds([...savedRecipeIds, recipeToSave.recipeId]);
-      console.log('useState setSavedRecipeIds', savedRecipeIds);
     }
     catch (err) {
       console.error(err);
     };
   };
-
 
 
   return (

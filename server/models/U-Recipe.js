@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
 
-// This is a subdocument schema, goes to the User's array of savedRecipes
+// This is a subdocument schema, goes to the User's array of savedrecipes
 const userRecipeSchema = new Schema(
   {
     recipeId: {

@@ -29,7 +29,6 @@ const Dashboard = () => {
   const [deleteRecipe] = useMutation(REMOVE_RECIPE);
   const userData = data?.me || {};
 
-
   const [recipeData, setRecipeData] = useState({ recipeId: '', title: '', servings: '', ingredients: '', instructions: '', createdBy: ''});
 
   const [show, setShow] = useState(false);
@@ -39,7 +38,6 @@ const Dashboard = () => {
   };
 
   const handleEditRecipe = async (recipeId) => {
-    console.log('user', userData);
     const thisRecipe = await userData.savedRecipes.filter(recipe => recipe.recipeId === recipeId);
     // needed userId NEEDS REFACTORING
     setRecipeData({ title: thisRecipe[0].title, servings: thisRecipe[0].servings, ingredients: thisRecipe[0].ingredients, instructions: thisRecipe[0].instructions, recipeId: thisRecipe[0].recipeId, createdBy: userData.username});

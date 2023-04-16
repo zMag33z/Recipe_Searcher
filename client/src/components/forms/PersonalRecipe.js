@@ -9,7 +9,7 @@ import Auth from "../../utils/auth";
 const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const [recipeFormData, setRecipeFormData] = useState({title: singleRecipe.title, servings: singleRecipe.servings, ingredients: singleRecipe.ingredients, instructions: singleRecipe.instructions, recipeId: singleRecipe.recipeId, createdBy: singleRecipe.createdBy});
-  console.log(recipeFormData);
+
   const [validated] = useState('false');
 
   const [characterCount, setCharacterCount] = useState(0);
@@ -57,7 +57,7 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
       const { data } = await createRecipe({
         variables: { personalRecipe: { ...recipeFormData }},
       });
-      console.log(data);
+      console.log('back in personal recipe', data);
     } catch (err) {
       console.error(err);
     }
@@ -68,7 +68,8 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
       ingredients: '',
       instructions: '',
     })
-
+    // i am loving the toggle over modal functionality
+    handleToggle();
   };
 
   return (
