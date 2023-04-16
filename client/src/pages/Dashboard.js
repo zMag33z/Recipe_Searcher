@@ -29,7 +29,8 @@ const Dashboard = () => {
   const [deleteRecipe] = useMutation(REMOVE_RECIPE);
   const userData = data?.me || {};
 
-  const [recipeData, setRecipeData] = useState({ recipeId: '', title: '', servings: '', ingredients: '', instructions: ''});
+
+  const [recipeData, setRecipeData] = useState({ recipeId: '', title: '', servings: '', ingredients: '', instructions: '', userId: ''});
 
   const [show, setShow] = useState(false);
 
@@ -37,9 +38,12 @@ const Dashboard = () => {
     setShow(!show);
   };
 
-  const handleEditRecipe = async (recipeId) => {
+  const handleEditRecipe = async (recipeId, userId) => {
+    console.log(userData._id)
     const thisRecipe = await userData.savedRecipes.filter(recipe => recipe.recipeId === recipeId);
-    setRecipeData(...thisRecipe);
+    console.log('handle edit',thisRecipe)
+    // needed userId NEEDS REFACTORING
+    setRecipeData({ title: thisRecipe[0].title, servings: thisRecipe[0].servings, ingredients: thisRecipe[0].ingredients, instructions: thisRecipe[0].instructions, recipeId: thisRecipe[0].recipeId, userId: userData._id});
     handleToggle();
   };
 
@@ -90,7 +94,7 @@ const Dashboard = () => {
                       handleEditRecipe(recipe.recipeId);
                       }}>Edit Recipe</button>
                     <Button className='btn-block btn-danger' onClick={() => {
-                      handleDeleteRecipe(recipe.recipeId);
+                      handleDeleteRecipe(recipe.recipeId, userData._id);
                       }}>
                     {userData.savedRecipes?.some((savedRecipeId) => savedRecipeId === recipe.recipeId)
                           ? 'Recipe Deleted!'

@@ -4,25 +4,26 @@ import { useMutation } from "@apollo/client";
 import { CREATE_RECIPE } from "../../utils/mutations";
 // import { QUERY_RECIPES } from "../../utils/queries";
 
-// import Auth from "../../utils/auth";
+import Auth from "../../utils/auth";
 
 const RecipeForm = ({singleRecipe, handleToggle}) => {
-
-  const [recipeFormData, setRecipeFormData] = useState(singleRecipe);
+  console.log(singleRecipe)
+  const [recipeFormData, setRecipeFormData] = useState({title: singleRecipe.title, servings: singleRecipe.servings, ingredients: singleRecipe.ingredients, instructions: singleRecipe.instructions, recipeId: singleRecipe.recipeId, userId: singleRecipe.userId});
   
   const [validated] = useState('false');
 
-  // const [characterCount, setCharacterCount] = useState(0);
+  const [characterCount, setCharacterCount] = useState(0);
 
   const [createRecipe, { error }] = useMutation(CREATE_RECIPE);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setRecipeFormData({ ...recipeFormData, [name]: value });
-    // setCharacterCount(value.length);
+    setCharacterCount(value.length);
 
     // the ingredient list and instruction list will be longer than 280 characters.
     // Not currently worried about it.
+
     // if (name === "title" && value.length <= 280) {
     //   setRecipeFormData({ ...recipeFormData, [name]: value });
     //   setCharacterCount(value.length);
@@ -39,8 +40,6 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
     //   setRecipeFormData({ ...recipeFormData, [name]: value });
     //   setCharacterCount(value.length);
     // }
-
-    console.log(name, value);
   };
 
   const handleFormSubmit = async (event) => {
@@ -52,17 +51,24 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
       event.stopPropagation();
     };
 
+    console.log('validity');
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null;  
+
+    if(!token){return false;};
+    console.log('token');
     try {
+      console.log(recipeFormData);
       const { data } = await createRecipe({
-        variables: { ...recipeFormData },
+        variables: { personalRecipe: { ...recipeFormData }},
       });
 
 
-      console.log('FORM SUBMIT', data);
+      console.log('DATA SAVED', data);
     } catch (err) {
       console.error(err);
     }
-console.log('checking before setrecipe empty form')
+
     setRecipeFormData({
       title: '',
       servings: '',
@@ -86,10 +92,9 @@ console.log('checking before setrecipe empty form')
             <h3>Create a New Recipe</h3>
           </header>
 
-          {/* <p className={`m-0 ${characterCount === 280 || error ? 'text-danger' : ''}`}>
+          <p className="m-0" >
             Character Count: {characterCount}/280
-            {error && <span className="ml-2">Something went wrong...</span>}
-          </p> */}
+          </p>
 
           <div className="modal-container">
             <form noValidate validated={validated}

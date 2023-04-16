@@ -41,6 +41,7 @@ const typeDefs = gql`
     servings: String!
     ingredients: String!
     instructions: String!
+    userId: String!
   }
 
   type Auth {

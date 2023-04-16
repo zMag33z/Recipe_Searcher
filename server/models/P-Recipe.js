@@ -29,8 +29,7 @@ const personalRecipeSchema = new Schema(
         default: Date.now,
     },
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true,
     }
   }
