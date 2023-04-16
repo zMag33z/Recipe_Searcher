@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 
 import { CREATE_RECIPE } from "../../utils/mutations";
+import { USER_RECIPE_UPDATE } from "../../utils/mutations";
 // import { QUERY_RECIPES } from "../../utils/queries";
 
 import Auth from "../../utils/auth";
@@ -14,7 +15,9 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [createRecipe, { error }] = useMutation(CREATE_RECIPE);
+  const [createRecipe] = useMutation(CREATE_RECIPE);
+
+  const [userRecipeUpdate, {error}] = useMutation(USER_RECIPE_UPDATE);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -59,13 +62,20 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
         variables: { personalRecipe: { ...recipeFormData }},
       });
 
-      // create mutation to now go off and update user saved recipes array
-      // START HERERE!!!!!!!!!
-
-
     } catch (err) {
       console.error(err);
     }
+
+    // create mutation to now go off and update user saved recipes array
+    // START HERERE!!!!!!!!!
+    // try {
+    //   await userRecipeUpdate({
+    //     variables: { personalRecipe: { ...recipeFormData }},
+    //   });
+
+    // } catch (err) {
+    //   console.error(err);
+    // }
 
     setRecipeFormData({
       title: '',
@@ -98,9 +108,9 @@ const RecipeForm = ({singleRecipe, handleToggle}) => {
           <div className="modal-container">
             <form noValidate validated={validated}
               onSubmit={handleFormSubmit}
-              className="flex-row justify-center justify-space-between-md align-center">
-                  
+              className="flex-row justify-center justify-space-between-md align-center">  
               <div className="col-12 col-lg-9">
+                {/* CYCLE THROUGH WITH MAP ON TEXTAREAS NOW THAT FORM IS ON SHOW TOGGLER */}
                 <textarea
                   name="title"
                   placeholder="Title"

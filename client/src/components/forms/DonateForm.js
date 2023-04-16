@@ -5,12 +5,12 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 //RENAME THIS IMPORT TO MATCH FOR QUERY TO ADD DONATION
-import { ADD_DONATION } from '../../utils/queries';
+import { ADD_DONATION } from '../../utils/mutations';
 
 
 export default function DonateForm() {
     const [formState, setFormState] = useState({
-        anyname: '',
+        fullname: '',
         email: '',
         amount: ''
     });
@@ -61,7 +61,7 @@ console.log(name)
                 <input
                     type="text"
                     id="name"
-                    name="anyname"
+                    name="fullname"
                     placeholder='Enter full name'
                     value={formState.fullname}
                     onChange={handleChange}

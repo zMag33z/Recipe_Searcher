@@ -1,4 +1,4 @@
-const { User, PersonalRecipe } = require("../models");
+const { User, PersonalRecipe, DonationList } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 // configure stripe here on server side USING CHECKOUT user fills out form for donation then donation checkout opens if info wrong user can close the box refill their form and resubmit action
@@ -111,46 +111,59 @@ const resolvers = {
 
         return updatedUser;
       }
-      throw new AuthenticationError("You must be logged in!");
+      // throw new AuthenticationError("You must be logged in!");
     },
-    // REFACTOR this code to meet needs of recipe model
+    // REFACTOR this code NOW to receive input from client side
     createRecipe: async (parent, { personalRecipe }, context) => {
-      
-      let newRecipeID;
-      try {
-        const newRecipeData = await PersonalRecipe.create(personalRecipe);
-        newRecipeID = newRecipeData._id;
-      } catch (err) {
-        console.error(err);
-      }
+      // creating new personal recipe
 
-      try {
-        const newUserData = await User.findOneAndUpdate(
-          { _id: context.user._id},
-          { $addToSet: { createdRecipes: newRecipeID }},
-          { runValidators: true, new: true }
-        );
-        console.log('CREATED ARRAY', newUserData);
-      } catch (err) {
-        console.error(err);
-      }
+      console.log('RESOVLER Save NONE go Back to CLIENT')
 
-      //CREATE NEW MUTATION BELOW FOR THIS CODE.
-
+      // let newRecipeID;
       // try {
-      //   const updateRecipe = personalRecipe;
-      //   delete updateRecipe.createdBy;
-      //   const updatedRecipeData = await User.findOneAndUpdate(
-      //     { _id: context.user._id, "savedRecipes.recipeId": personalRecipe.recipeId},
-      //     { $set: { updateRecipe } },
-      //     { runValidators: true, new: true }
-      //   ).populate("savedRecipes");
-      //   console.log('UPDATED', updatedRecipeData);
+      //   const newRecipeData = await PersonalRecipe.create(personalRecipe);
+      //   newRecipeID = newRecipeData._id;
       // } catch (err) {
       //   console.error(err);
       // }
+      // // adding new personal recipe id to user
+      // try {
+      //   const newUserData = await User.findOneAndUpdate(
+      //     { _id: context.user._id},
+      //     { $addToSet: { createdRecipes: newRecipeID }},
+      //     { runValidators: true, new: true }
+      //   );
+      //   console.log('CREATED ARRAY', newUserData);
+      // } catch (err) {
+      //   console.error(err);
+      // }
+    },
+    userRecipeUpdate: async (parent, { personalRecipe }, context) => {
+      //CREATE NEW MUTATION BELOW FOR THIS CODE.
 
+      // try {
 
+      //   KEEP AN EYE ON THE TWO PIECES BELOW POSSIBLY NEED CHANGE
+      //   const updateRecipe = personalRecipe;
+      //   delete updateRecipe.createdBy;
+
+      //   const updatedRecipeData = await User.findOneAndUpdate(
+      //     { _id: context.user._id, savedRecipes: { $elemMatch: { recipeId: personalRecipe.recipeId } }},
+      //     { $set: {
+      //       "savedRecipes.$.title": personalRecipe.title,
+      //       "savedRecipes.$.servings": personalRecipe.servings,
+      //       "savedRecipes.$.ingredients": personalRecipe.ingredients,
+      //       "savedRecipes.$.instructions": personalRecipe.instructions,
+      //       }
+      //     },
+      //     { runValidators: true, new: true }
+      //   ).populate("savedRecipes");
+
+      //   console.log('UPDATED', updatedRecipeData);
+
+      // } catch (err) {
+      //   console.error(err);
+      // }
     }
   },
 };

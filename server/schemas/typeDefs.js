@@ -19,6 +19,12 @@ const typeDefs = gql`
     createdBy: String!
   }
 
+  input DonationInput {
+    fullname: String!
+    email: String!
+    amount: String!
+  }
+
   type User {
     _id: ID!
     username: String!
@@ -44,6 +50,12 @@ const typeDefs = gql`
     createdBy: String!
   }
 
+  type DonationList {
+    fullname: String!
+    email: String!
+    amount: String!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -58,9 +70,11 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     saveRecipe(newRecipe: RecipeInput!): User
     removeRecipe(recipeId: ID!): User
-    createRecipe( personalRecipe: PRecipeInput! ): PersonalRecipe
-    addDonation( name: String!, amount: String!, message: String!): User
+    createRecipe(personalRecipe: PRecipeInput!): PersonalRecipe
+    userRecipeUpdate(updateUserRecipe: RecipeInput!): User
+    addDonation(donation: DonationInput!): DonationList
   }
 `;
-
+// look at saveRecipe and createRecipe mutations using Input types.
+// Use for updateRecipe and addDonation mutations
 module.exports = typeDefs;

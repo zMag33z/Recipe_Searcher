@@ -1,4 +1,7 @@
+// should implement actions file for mutations and queries
 import { gql } from '@apollo/client';
+
+
 
 // FINISH add donation query to go to checkout with info
 // export const GET_ME = gql`
@@ -37,6 +40,7 @@ export const GET_ME = gql`
   }  
 `;
 
+// FIX THIS QUERY FOR CALL TO HOMEPAGE SEARCHGPT FOR ALL USERS TO VIEW
 // export const QUERY_RECIPES = gql`
 //   {
 //     recipes {
@@ -55,22 +59,3 @@ export const GET_ME = gql`
 //   }
 // `;
 
-export const ADD_DONATION = gql`
-  mutation addDonation(
-    $anyname: String!
-    $email: String!
-    $amount: String!
-  ) {
-    addDonation(
-      anyname: $anyname
-      email: $email
-      amount: $amount
-    ) {
-      
-      thoughtText
-      thoughtAuthor
-      createdAt
-
-    }
-  }
-`;
