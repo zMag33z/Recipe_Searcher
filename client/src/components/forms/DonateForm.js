@@ -1,10 +1,10 @@
-//  code example given by GeeksforGeeks https://www.geeksforgeeks.org/how-to-integrate-stripe-payment-gateway-in-node-js/
-//  here i will create a form to show and hide modal style for the donation made by the user
-
+// Donation form
+// add back use effect from react when i get stripe code in  useEffect
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-//RENAME THIS IMPORT TO MATCH FOR QUERY TO ADD DONATION
+
+// NEED TO GET STRIPE CHECKOUT BEFORE FUNCTIONING TO ADD DONATION TO LIST.
 import { ADD_DONATION } from '../../utils/mutations';
 
 
@@ -16,6 +16,8 @@ export default function DonateForm() {
     });
     
     const [addDonation] = useMutation(ADD_DONATION);
+
+
     
     const handleFormSubmit = async (event) => {
         console.log(formState);
@@ -33,19 +35,15 @@ export default function DonateForm() {
     };
     
     const handleChange = (event) => {
-        // CHANGE IF'S TO SWITCH FOR THREE CASES
+ 
         const { name, value } = event.target;
-console.log(name)
-        switch(name){
-            case 'fullname':{
-                return setFormState({ ...formState, [name]: value });
-            }
-            case 'email':{
-                return setFormState({ ...formState, [name]: value });
-            }
-            case 'amount':{
-                return setFormState({ ...formState, [name]: value });
-            }
+
+        if (name === 'fullname') {
+            setFormState({ ...formState, [name]: value });
+        }else if(name === 'email'){
+            setFormState({ ...formState, [name]: value });
+        }else if(name === 'amount'){
+            setFormState({ ...formState, [name]: value });
         }
 
     };
@@ -83,15 +81,17 @@ console.log(name)
             </div>
             <div className='donator'>
                 <label>Enter Amount to Donate</label>
-                <input
+                <span>$ </span><input
                     type="text"
                     name="amount"
                     id="currency-field"
-                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"
                     data-type="currency"
-                    placeholder="Enter donation amount"
+                    placeholder="Amount"
+                    autoComplete="off"
                     value={formState.amount}
                     onChange={handleChange}
+                    minLength={1}
+                    maxLength={3}
                     required
                 />
             </div>
@@ -101,11 +101,12 @@ console.log(name)
                 <input
                     type="checkbox"
                     id="donate-list"
-                    name="vehicle1"
+                    name="addToList"
                     value={true} />
                 </div>
             <input type="submit" value="Submit" />
         </form>
+
     </section>
   );
 }

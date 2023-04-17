@@ -1,7 +1,8 @@
 const { User, PersonalRecipe, DonationList } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-// configure stripe here on server side USING CHECKOUT user fills out form for donation then donation checkout opens if info wrong user can close the box refill their form and resubmit action
+
+
 
 const resolvers = {
   Query: {
@@ -121,13 +122,15 @@ const resolvers = {
       } catch (err) {
         console.error(err);
       }
-    },
-        // create a query to function donation form
-    // example use from 22.24 change for personal usecase
-    
+    },    
     addDonation: async (parent, { donation }, context) => {
+      const name = 'donation';
+      const description = 'Donation to Recipe Searcher';
+      let parseToINT = donation.amount;
+      parseToINT = parseFloat(parseToINT);
+      console.log('RESOLVER addDonation', donation, donation.amount, context.headers.referer);
 
-      console.log(donation);
+
 
     },
   },

@@ -46,6 +46,9 @@
     font-style: italic;
 }
 
+#currency-field {
+ width: 75px;
+}
 .donator:nth-child(4){
     border-top: 2px solid #009688;
 }

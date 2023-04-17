@@ -161,7 +161,7 @@ const SearchGPT = () => {
           })}
         </Row>
       </Container>
-
+      {/* reconfigure to boolean show or not instead of click block none */}
       <View />
     </>
   );

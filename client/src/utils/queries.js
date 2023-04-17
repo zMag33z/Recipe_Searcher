@@ -2,7 +2,6 @@
 import { gql } from '@apollo/client';
 
 
-
 // FINISH add donation query to go to checkout with info
 // export const GET_ME = gql`
 //   {

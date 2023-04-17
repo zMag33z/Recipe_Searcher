@@ -17,4 +17,3 @@
     return fetch(`https://recipe-by-api-ninjas.p.rapidapi.com/v1/recipe?query=${query}`, options);
   };
 
-  // create stripe fetch request
